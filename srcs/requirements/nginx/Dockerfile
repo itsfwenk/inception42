@@ -1,6 +1,6 @@
 FROM debian:bullseye
 
-RUN apt update && \
+RUN apt update -y && \
     apt install vim -y && \
     apt install curl -y && \
     apt install nginx -y && \
