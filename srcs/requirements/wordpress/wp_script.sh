@@ -21,15 +21,20 @@ fi
 echo "Restarting PHP-FPM service..."
 systemctl restart php7.4-fpm
 
-echo "Configuration changes applied successfully!"
+echo "PHP configuration changes applied successfully!"
 
-# Update WordPress configuration
-if [ ! -f /var/www/wordpress/wp-config.php ]; then
-    cp /var/www/wordpress/wp-config-sample.php /var/www/wordpress/wp-config.php
-    sed -i "s/database_name_here/wordpress/" /var/www/wordpress/wp-config.php
-    sed -i "s/username_here/fli/" /var/www/wordpress/wp-config.php
-    sed -i "s/password_here/wordpress_password/" /var/www/wordpress/wp-config.php
-    sed -i "s/localhost/db/" /var/www/wordpress/wp-config.php
-fi
+until mysql -h db -u root -p"$MYSQL_ROOT_PASSWORD" -e "SELECT 1" &> /dev/null; do
+    echo "Waiting for the database to be ready..."
+    sleep 3
+done
+
+# # Update WordPress configuration
+# if [ ! -f /var/www/wordpress/wp-config.php ]; then
+#     cp /var/www/wordpress/wp-config-sample.php /var/www/wordpress/wp-config.php
+#     sed -i "s/database_name_here/wordpress/" /var/www/wordpress/wp-config.php
+#     sed -i "s/username_here/fli/" /var/www/wordpress/wp-config.php
+#     sed -i "s/password_here/wordpress_password/" /var/www/wordpress/wp-config.php
+#     sed -i "s/localhost/db/" /var/www/wordpress/wp-config.php
+# fi
 
 php-fpm
