@@ -28,7 +28,6 @@ until mysql -h db -u root -p"$MYSQL_ROOT_PASSWORD" -e "SELECT 1" &> /dev/null; d
     sleep 3
 done
 
-# # Update WordPress configuration
 # if [ ! -f /var/www/wordpress/wp-config.php ]; then
 #     cp /var/www/wordpress/wp-config-sample.php /var/www/wordpress/wp-config.php
 #     sed -i "s/database_name_here/wordpress/" /var/www/wordpress/wp-config.php
@@ -36,5 +35,19 @@ done
 #     sed -i "s/password_here/wordpress_password/" /var/www/wordpress/wp-config.php
 #     sed -i "s/localhost/db/" /var/www/wordpress/wp-config.php
 # fi
+
+wp config create	--allow-root \
+					--dbname=$SQL_DATABASE \
+					--dbuser=$SQL_USER \
+					--dbpass=$SQL_PASSWORD \
+					--dbhost=mariadb:3306 --path='/var/www/wordpress'
+
+sudo -u www-data wp core install --url='fli.42.fr' \
+								--title='Inception' \
+								--admin_user=$WP_ADMINUSER \
+								--admin_password=$WP_ADMINPW \
+								--admin_email='fli@student.42.fr'
+
+wp user create fliuser fli@user.fr
 
 php-fpm
