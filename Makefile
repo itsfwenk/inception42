@@ -23,7 +23,7 @@ down:
 	sudo rm -rf ${MARIADB_VOL}/*
 
 rebuild: down
-	docker compose -f ${COMPOSE} build
+	docker compose -f ${SRCS}${DOCKER_COMPOSE} build
 
 clean: down
 	docker system prune -a --volumes

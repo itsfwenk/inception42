@@ -25,7 +25,7 @@ RUN mv wp-cli.phar /usr/local/bin/wp
 
 EXPOSE 9000
 
-RUN chmod +x wp_script.sh
+# RUN chmod +x ./wp_script.sh
 
 COPY ./wp_script.sh /usr/local/bin/wp_script.sh
 

@@ -19,7 +19,8 @@ else
 fi
 
 echo "Restarting PHP-FPM service..."
-systemctl restart php7.4-fpm
+# systemctl restart php7.4-fpm
+docker exec wordpress pkill -USR2 php-fpm
 
 echo "PHP configuration changes applied successfully!"
 
