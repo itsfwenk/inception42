@@ -3,8 +3,6 @@ FROM debian:bullseye
 RUN apt update -y && \
     apt upgrade -y && \
     apt-get install mariadb-server -y
-    # systemctl enable mariadb && \
-    # systemctl start mariadb
 
 COPY conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf
 
@@ -14,13 +12,15 @@ COPY docker-entrypoint.sh /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
+RUN chmod -R 755 /var/lib/mysql
+
 WORKDIR /var/lib/mysql
 
 EXPOSE 3306
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-CMD ["mysqld"]
+# CMD ["mysqld"]
 
 # # Use a base Linux image
 # FROM debian:bullseye
