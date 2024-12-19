@@ -8,11 +8,13 @@ COPY conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf
 
 COPY docker-entrypoint.sh /usr/local/bin/
 
-# COPY ../../.env /var/lib/mysql
-
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 RUN chmod -R 755 /var/lib/mysql
+
+RUN mkdir -p /run/mysqld
+
+RUN chown -R mysql:mysql /run/mysqld
 
 WORKDIR /var/lib/mysql
 

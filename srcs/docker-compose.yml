@@ -20,7 +20,6 @@ services:
     networks:
       - inception
     depends_on:
-      - mariadb
       - wordpress
     build: 
       context: requirements/nginx
