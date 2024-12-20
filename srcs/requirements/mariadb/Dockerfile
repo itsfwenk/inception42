@@ -1,26 +1,28 @@
-FROM debian:bullseye
+# FROM debian:bullseye
 
-RUN apt update -y && \
-    apt upgrade -y && \
-    apt-get install mariadb-server -y
+# RUN apt update -y && \
+#     apt upgrade -y && \
+#     apt-get install mariadb-server -y
 
-COPY conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf
+# COPY conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf
 
-COPY docker-entrypoint.sh /usr/local/bin/
+# COPY docker-entrypoint.sh /usr/local/bin/
 
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+# RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-RUN chmod -R 755 /var/lib/mysql
+# RUN chmod -R 755 /var/lib/mysql
 
-RUN mkdir -p /run/mysqld
+# RUN mkdir -p /run/mysqld
 
-RUN chown -R mysql:mysql /run/mysqld
+# RUN chown -R mysql:mysql /run/mysqld
 
-WORKDIR /var/lib/mysql
+# WORKDIR /var/lib/mysql
 
-EXPOSE 3306
+# EXPOSE 3306
 
-ENTRYPOINT ["docker-entrypoint.sh"]
+# ENTRYPOINT ["docker-entrypoint.sh"]
+
+############################
 
 # CMD ["mysqld"]
 
@@ -49,3 +51,23 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 
 # # Start MariaDB
 # CMD ["mysqld"]
+
+##########################
+
+FROM	debian:bullseye
+
+RUN	 apt-get update -y &&  apt-get upgrade -y &&  apt-get install mariadb-server mariadb-client -y
+
+RUN	mkdir -p /var/run/mysqld && \
+	chown mysql:mysql /var/run/mysqld && \
+	chmod 777 /var/run/mysqld
+	
+COPY	conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY	docker-entrypoint.sh /usr/local/bin/
+
+RUN	chmod +x /usr/local/bin/docker-entrypoint.sh
+
+EXPOSE	3306
+
+ENTRYPOINT ["usr/local/bin/docker-entrypoint.sh"]
+CMD ["mysqld"]
