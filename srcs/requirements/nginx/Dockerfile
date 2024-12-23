@@ -18,6 +18,4 @@ WORKDIR /var/www/html
 
 EXPOSE 80 443
 
-# ENTRYPOINT 
-
 CMD ["nginx", "-g", "daemon off;"]
