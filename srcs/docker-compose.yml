@@ -16,7 +16,7 @@ services:
   nginx:
     container_name: nginx
     volumes:
-      - wordpress:/var/www/wordpress
+      - wordpress:/var/www/html
     networks:
       - inception
     depends_on:
@@ -27,13 +27,13 @@ services:
     env_file: /home/fli/inception/srcs/.env
     ports:
       - "443:443"
-    restart: on-failure
+    restart: unless-stopped
 
   wordpress:
     container_name: wordpress
     env_file: /home/fli/inception/srcs/.env
     volumes:
-      - wordpress:/var/www/wordpress
+      - wordpress:/var/www/html
     networks:
       - inception
     build: 
@@ -61,4 +61,5 @@ volumes:
 
 networks:
   inception:
+    name: inception
     driver: bridge
