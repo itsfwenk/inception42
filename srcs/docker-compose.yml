@@ -28,6 +28,16 @@ services:
     ports:
       - "443:443"
     restart: unless-stopped
+  
+  redis:
+    container_name: redis
+    networks:
+      - inception
+    build:
+      context: requirements/redis
+      dockerfile: "Dockerfile"
+    env_file: /home/fli/inception/srcs/.env
+    restart: unless-stopped
 
   wordpress:
     container_name: wordpress
@@ -41,6 +51,7 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - mariadb
+      - redis
     restart: on-failure
     expose: 
       - "9000"
