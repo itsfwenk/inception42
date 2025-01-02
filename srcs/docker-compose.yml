@@ -55,6 +55,25 @@ services:
     restart: on-failure
     expose: 
       - "9000"
+  
+  ftp:
+    container_name: ftp
+    env_file: /home/fli/inception/srcs/.env
+    volumes:
+      - wordpress:/web_data
+    networks:
+      - inception
+    build:
+      context: requirements/ftp
+      dockerfile: Dockerfile
+      args:
+        FTP_USER: ${FTP_USER}
+        FTP_PASSWORD: ${FTP_PASSWORD}
+    ports:
+      - "20:20"
+      - "21:21"
+      - "30000-30100:30000-30100"
+
 
 volumes:
   wordpress:
