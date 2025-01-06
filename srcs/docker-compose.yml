@@ -74,6 +74,29 @@ services:
       - "21:21"
       - "30000-30100:30000-30100"
 
+  static:
+    container_name: static
+    networks:
+      - inception
+    build:
+      context: requirements/static
+      dockerfile: Dockerfile
+    ports:
+      - "443:443"
+    volumes:
+      - ./requirements/static/website-files:/usr/share/caddy
+      - ./requirements/static/Caddyfile:/etc/caddy/Caddyfile 
+  # static:
+  #   networks:
+  #     - inception
+  #   build:
+  #     context: requirements/static
+  #     dockerfile: "Dockerfile"
+  #   image: static
+  #   pull_policy: never
+  #   volumes:
+  #     - wordpress:/var/www/html
+  #   restart: on-failure:2
 
 volumes:
   wordpress:

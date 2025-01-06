@@ -1,0 +1,4 @@
+static.fli.42.fr {
+    root * /usr/share/caddy
+    file_server
+}
