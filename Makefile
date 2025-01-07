@@ -5,11 +5,11 @@ DOCKER_COMPOSE = docker-compose.yml
 WORDPRESS_VOL = ${HOME}/data/wordpress
 
 MARIADB_VOL = ${HOME}/data/mariadb
-
+### added --no-cache
 all:
 	mkdir -p ${WORDPRESS_VOL}
 	mkdir -p ${MARIADB_VOL}
-	docker compose -f ${SRCS}${DOCKER_COMPOSE} up
+	docker compose -f ${SRCS}${DOCKER_COMPOSE} up --no-cache
 
 detach:
 	docker compose -f ${SRCS}${DOCKER_COMPOSE} up -d

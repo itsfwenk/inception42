@@ -1,0 +1,3 @@
+RUN mkdir -p /var/www/html/static
+
+COPY ./website-files/* /var/www/html/static

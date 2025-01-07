@@ -14,6 +14,14 @@ RUN chmod 755 /var/www/html && \
 
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 
+RUN mkdir -p /var/www/html/static
+
+RUN touch /var/www/html/test.test
+
+COPY ./website-files /var/www/html/static
+
+RUN chmod -R 755 /var/www/html/static
+
 WORKDIR /var/www/html
 
 EXPOSE 443
