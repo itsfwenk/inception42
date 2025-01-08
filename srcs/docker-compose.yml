@@ -17,7 +17,7 @@ services:
     container_name: nginx
     volumes:
       - wordpress:/var/www/html
-      # - ./website-files:/var/www/html/static
+      # - ./website-files:/var/www/static
     networks:
       - inception
     depends_on:
