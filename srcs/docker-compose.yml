@@ -75,6 +75,19 @@ services:
       - "21:21"
       - "30000-30100:30000-30100"
 
+  adminer:
+    container_name: adminer
+    networks:
+      - inception
+    build:
+      context: requirements/adminer
+      dockerfile: "Dockerfile"
+    depends_on:
+      - mariadb
+    volumes:
+      - wordpress:/var/www
+    restart: unless-stopped
+
   # static:
   #   container_name: static
   #   networks:
