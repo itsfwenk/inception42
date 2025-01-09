@@ -10,7 +10,7 @@ RUN curl -L https://github.com/portainer/portainer/releases/download/2.21.5/port
     tar -xzvf /portainer.tar.gz -C / && \
     rm /portainer.tar.gz
 
-# RUN useradd -ms /bin/bash portainer
+RUN useradd -ms /bin/bash portainer
 
 WORKDIR /portainer
 
@@ -18,7 +18,7 @@ RUN chmod +x /portainer
 
 EXPOSE 9001
 
-USER root
+USER portainer
 
 ENTRYPOINT ["/portainer/portainer"]
 
