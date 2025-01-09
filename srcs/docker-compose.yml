@@ -87,6 +87,21 @@ services:
       - wordpress:/var/www
     restart: unless-stopped
 
+  portainer:
+    container_name: portainer
+    networks:
+      - inception
+    build:
+      context: requirements/portainer
+      dockerfile: "Dockerfile"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    restart: unless-stopped
+    expose: 
+      - "9001"
+
+
 volumes:
   wordpress:
     driver: local
@@ -100,6 +115,12 @@ volumes:
       type: 'none' 
       o: 'bind'
       device: '/home/fli/data/mariadb'
+  portainer_data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/fli/data/portainer'
 
 networks:
   inception:
