@@ -17,7 +17,6 @@ services:
     container_name: nginx
     volumes:
       - wordpress:/var/www/html
-      # - ./website-files:/var/www/static
     networks:
       - inception
     depends_on:
@@ -87,30 +86,6 @@ services:
     volumes:
       - wordpress:/var/www
     restart: unless-stopped
-
-  # static:
-  #   container_name: static
-  #   networks:
-  #     - inception
-  #   build:
-  #     context: requirements/static
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "443:443"
-  #   volumes:
-  #     - ./requirements/static/website-files:/usr/share/caddy
-  #     - ./requirements/static/Caddyfile:/etc/caddy/Caddyfile 
-  # static:
-  #   networks:
-  #     - inception
-  #   build:
-  #     context: requirements/static
-  #     dockerfile: "Dockerfile"
-  #   image: static
-  #   pull_policy: never
-  #   volumes:
-  #     - wordpress:/var/www/html
-  #   restart: on-failure:2
 
 volumes:
   wordpress:
